@@ -23,7 +23,10 @@ class ViewController: UIViewController {
     //    click userview to go to this view
     private let buttonUserView: UIButton = {
         let button = UIButton(type: .system)
-        button.setBackgroundImage(UIImage(named: "myuser"), for: .normal)
+        let origImage = UIImage(named: "myuser")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(tintedImage, for: .normal)
+        button.tintColor = UIColor(red: 124/255, green: 38/255, blue: 102/255, alpha: 0.2)
         return button
     }()
     //    click experienceview to go to this view
@@ -40,6 +43,7 @@ class ViewController: UIViewController {
         layout.scrollDirection = .horizontal
         let swipingController = ExperienceViewController(collectionViewLayout: layout)
         self.present(swipingController, animated: false, completion: nil)
+        self.removeFromParent()
     }
     
     //    click studiesView to go to this view
@@ -56,6 +60,7 @@ class ViewController: UIViewController {
         layout.scrollDirection = .horizontal
         let swipingController = StudiesViewController(collectionViewLayout: layout)
         self.present(swipingController, animated: false, completion: nil)
+        self.removeFromParent()
     }
     
     private let bottomControlsStackView: UIStackView = {
@@ -67,7 +72,7 @@ class ViewController: UIViewController {
         let textView = UITextView()
         let attributedText = NSMutableAttributedString(string: "David E. Parra Mercado", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)])
         
-         attributedText.append(NSAttributedString(string: "\nGame Programmer", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)]))
+         attributedText.append(NSAttributedString(string: "\nGame Programmer/Developer", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)]))
         
         attributedText.append(NSAttributedString(string: "\n\nda_dparra@hotmail.com", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
 
@@ -169,6 +174,7 @@ class ViewController: UIViewController {
 
 }
 
+//removing old constraints for adding the new ones
 extension UIView {
     
     /**
@@ -181,6 +187,5 @@ extension UIView {
             } ?? []
         
         self.superview?.removeConstraints(constraints)
-//        self.removeConstraints(self.constraints)
     }
 }

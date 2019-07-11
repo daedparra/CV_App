@@ -39,7 +39,7 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
         button.setTitle("NEXT", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
@@ -55,8 +55,8 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
         let pc = UIPageControl()
         pc.currentPage = 0
         pc.numberOfPages = pages.count
-        pc.currentPageIndicatorTintColor = .blue
-        pc.pageIndicatorTintColor = UIColor(red: 249/255, green: 207/255, blue: 224/255, alpha: 1)
+        pc.currentPageIndicatorTintColor = .black
+        pc.pageIndicatorTintColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
         return pc
     }()
     
@@ -73,12 +73,16 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
     @objc private func handleUser() {
         let swipingController = ViewController()
         self.present(swipingController, animated: false, completion: nil)
+        self.removeFromParent()
     }
     
     //    click experienceview to go to this view
     private let buttonExperienceView: UIButton = {
         let button = UIButton(type: .system)
-        button.setBackgroundImage(UIImage(named: "portfolio"), for: .normal)
+        let origImage = UIImage(named: "portfolio")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(tintedImage, for: .normal)
+        button.tintColor = UIColor(red: 124/255, green: 38/255, blue: 102/255, alpha: 0.2)
         return button
     }()
 
@@ -96,6 +100,7 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
         layout.scrollDirection = .horizontal
         let swipingController = StudiesViewController(collectionViewLayout: layout)
         self.present(swipingController, animated: false, completion: nil)
+        self.removeFromParent()
     }
     
     //    stack for saving the buttons in a location
@@ -119,7 +124,7 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
             bottomControlsStackView.heightAnchor.constraint(equalToConstant: 50)
             ])
     }
-    
+//    add to the current view the buttons to the bottom
     private func setupBottomControls(){
         
         view.addSubview(bottomControlsStackView)
@@ -129,7 +134,7 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
         configureContraintsForSize(size: view.bounds.size)
         
     }
-    
+//    change the constraints for landscape or portrait
     private func configureContraintsForSize(size: CGSize){
         if(size.width > size.height){
             
@@ -169,7 +174,7 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
         pageControl.currentPage = Int(x / view.frame.width)
         
     }
-    
+//    connect to firebase and get the jason file
     private func getDataFromFirebase(){
         var ref: DatabaseReference!
         

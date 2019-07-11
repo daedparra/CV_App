@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//constructor for returning each page that firebase will return 
 class Page{
     let imageName: String
     let headerText: String

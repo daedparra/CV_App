@@ -39,7 +39,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         button.setTitle("NEXT", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(.red, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
@@ -55,8 +55,8 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         let pc = UIPageControl()
         pc.currentPage = 0
         pc.numberOfPages = pages.count
-        pc.currentPageIndicatorTintColor = .red
-        pc.pageIndicatorTintColor = UIColor(red: 249/255, green: 207/255, blue: 224/255, alpha: 1)
+        pc.currentPageIndicatorTintColor = .black
+        pc.pageIndicatorTintColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
         return pc
     }()
     
@@ -73,7 +73,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
     @objc private func handleUser() {
         let swipingController = ViewController()
         self.present(swipingController, animated: false, completion: nil)
-        //self.dismiss(animated: false, completion: nil)
+        self.removeFromParent()
     }
     
 //    click experienceview to go to this view
@@ -90,12 +90,16 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         layout.scrollDirection = .horizontal
         let swipingController = ExperienceViewController(collectionViewLayout: layout)
         self.present(swipingController, animated: false, completion: nil)
+        self.removeFromParent()
     }
     
 //    click studiesView to go to this view
     private let buttonStudiesView: UIButton = {
         let button = UIButton(type: .system)
-        button.setBackgroundImage(UIImage(named: "studies"), for: .normal)
+        let origImage = UIImage(named: "studies")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(tintedImage, for: .normal)
+        button.tintColor = UIColor(red: 124/255, green: 38/255, blue: 102/255, alpha: 0.2)
         return button
     }()
 //    stack for saving the buttons in a location 
@@ -120,6 +124,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
             ])
     }
     
+    //adding the bottom controllers, with the desire layout
     private func setupBottomControls(){
         
         view.addSubview(bottomControlsStackView)
@@ -129,7 +134,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         configureContraintsForSize(size: view.bounds.size)
         
     }
-    
+//    if size change the constraints will change
     private func configureContraintsForSize(size: CGSize){
         if(size.width > size.height){
             
@@ -169,7 +174,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         pageControl.currentPage = Int(x / view.frame.width)
         
     }
-    
+//    getting all the values from data base as a json 
     private func getDataFromFirebase(){
         var ref: DatabaseReference!
         

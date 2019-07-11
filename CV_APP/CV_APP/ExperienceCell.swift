@@ -9,12 +9,13 @@ import UIKit
 
 class ExperienceCell: UICollectionViewCell{
     
-    
+//    vairiable to receive when the cell is created
     var page: Page?{
         didSet{
+//            if page dose not exist we return for not crashing the code
             guard let existPage = page else {return}
             imageProfileView.image = UIImage(named: existPage.imageName)
-            
+//            adding text on what we got
             let attributedText = NSMutableAttributedString(string: existPage.headerText, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)])
             attributedText.append(NSAttributedString(string: "\n\n" + existPage.descriptionText, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)]))
             attributedText.append(NSAttributedString(string: "\n" + existPage.date, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]))
@@ -25,13 +26,14 @@ class ExperienceCell: UICollectionViewCell{
             descriptionView.isScrollEnabled = false
         }
     }
+//    variable for returning the pictureview
     private let imageProfileView: UIImageView = {
         let imageview = UIImageView(image: UIImage(named: "profilePicture"))
         imageview.translatesAutoresizingMaskIntoConstraints = false
         imageview.contentMode = .scaleAspectFit
         return imageview
     }()
-    
+//    variable for returning the textview
     private let descriptionView : UITextView = {
         let textView = UITextView()
         let attributedText = NSMutableAttributedString(string: "David E. Parra Mercado", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)])
@@ -41,19 +43,19 @@ class ExperienceCell: UICollectionViewCell{
         textView.isScrollEnabled = false
         return textView
     }()
-    
-    
-    
+
+//init function when the view is created
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //        backgroundColor = .purple
         addSubview(descriptionView)
         setupLayout()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    set up for moving the layout
     private func setupLayout(){
         
         //        this enables autolayout for our imageView
