@@ -51,6 +51,7 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(named: "studies"), for: .normal)
         button.addTarget(self, action: #selector(handleStudies), for: .touchUpInside)
+        button.accessibilityIdentifier = "studies"
         return button
     }()
     

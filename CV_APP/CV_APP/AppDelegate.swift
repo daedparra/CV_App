@@ -19,14 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
-//        window = UIWindow()
-//        window?.makeKeyAndVisible()
-//
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        let swipingController = StudiesViewController(collectionViewLayout: layout)
-//
-//        window?.rootViewController = swipingController
+        if CommandLine.arguments.contains("--uitesting") {
+            let defaultsName = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: defaultsName)
+        }
         
         return true
     }
