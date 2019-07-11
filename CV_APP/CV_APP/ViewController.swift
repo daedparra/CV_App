@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         
         attributedText.append(NSAttributedString(string: "\n\nda_dparra@hotmail.com", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
 
-       attributedText.append(NSAttributedString(string: "\n011 521 5516440106 (Mobile)", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]))
+        attributedText.append(NSAttributedString(string: "\nInterested in the creation and development of software, up for creating all types of games in different platforms with C++, C#, Swift, such as pc, mobile or console", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]))
         
         attributedText.append(NSAttributedString(string: "\nhttps://www.linkedin.com/in/david-eduardo-parra-mercado/", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12)]))
         
@@ -166,8 +166,8 @@ class ViewController: UIViewController {
         
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.topAnchor.constraint(equalTo: topImageContainerView.bottomAnchor, constant: 10).isActive = true
-        descriptionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24).isActive = true
-        descriptionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24).isActive = true
+        descriptionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
+        descriptionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         descriptionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 50).isActive = true
         
     }
