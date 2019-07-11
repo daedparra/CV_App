@@ -7,18 +7,12 @@
 //
 
 import UIKit
-
+import Firebase
 
 class ExperienceViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     //pages that will have this view controller, created by the page file that can be used on the whole project
     
-    let pages = [
-        Page(name: "crystalcannon", header: "Crystal Cannon", description: "Crystal Cannon is a 3D isometric class based co-op fantasy shooter for PC. As one of the four fabled heroes of Legend, you are tasked with retrieving and protecting the ultimate weapon, the Crystal Cannon, and using it against Kendren, the cursed evil dragon, to defeat him and his crystal plague for all time. Developing Gameplay, AI Enemies, AI Bots for testing the game. ", date: "Mar. 2019 to Current"),
-        Page(name: "flyout", header: "Fly Out", description: " 2D Game build in Unity Engine based on a endless runner using C# and scriptable objects. Developed gameplay mechanics, spawn points, AI, and player controller. This game can be Multiplatform, but for now is only on iOS and Android", date: "Oct. 2018 to Dec. 2018"),
-        Page(name: "dit", header: "Dungeons in Time", description: "Third Person Game build in Unreal Engine based on a exploration world game using C++ language, Blueprints. Developed procedural dungeons for the game play, using closest path to connect each of the rooms. Making some of the AI with AIControllers, Patrolling path, and Following Actor or character", date: "Dec. 2018 to Feb. 2019"),
-        Page(name: "spotit", header: "Spot.IT", description: "Mobile App created on Xcode with swift 4. This app will be a social network for showing all the events that are near to you. Using Firebase, CocoaPods, Push Nofitications", date: "Aug. 2017 to Current"),
-        Page(name: "cvi", header: "Cowboys VS Indians", description: "Runner type Game made in Xcode for iOS platform, in Swift 4 and SpriteKit. I created the whole game mechanics, gameplays, widgets", date: "Aug. 2017 to Dec. 2017")
-    ]
+    var pages = [Page]()
     
     //button for the creation of the pager, this will appear always at the top of the UI
     private let previousButton: UIButton = {
@@ -176,9 +170,35 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
         
     }
     
+    private func getDataFromFirebase(){
+        var ref: DatabaseReference!
+        
+        ref = Database.database().reference(withPath: "experiences")
+        
+        ref.observe(.value) { (snapshot) in
+            var newLeaders = [Page]()
+            for child in snapshot.children{
+                let data = child as? DataSnapshot
+                let value = data?.value as? [String:Any]
+                let date = value?["date"] as? String
+                let description = value?["description"] as? String
+                let header = value?["header"] as? String
+                let name = value?["name"] as? String
+                let page = Page(name: name!, header: header!, description: description!, date: date!)
+                newLeaders.append(page)
+            }
+            self.pages = newLeaders
+            self.collectionView.reloadData()
+        }
+    }
+    
+    
     //    function that loads every time you run the app
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDataFromFirebase()
+        
         setupTopControls()
         setupBottomControls()
         
@@ -189,6 +209,7 @@ class ExperienceViewController: UICollectionViewController, UICollectionViewDele
     
     //    know how many pages the view will have
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        pageControl.numberOfPages = pages.count
         return pages.count
     }
     //    no space between the views

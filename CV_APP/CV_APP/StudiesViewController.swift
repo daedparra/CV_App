@@ -7,15 +7,12 @@
 //
 
 import UIKit
-
+import Firebase
 
 class StudiesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     //pages that will have this view controller, created by the page file that can be used on the whole project
     
-    let pages = [
-        Page(name: "vfs", header: "Vancouver Film School", description: "Diploma Programming for Games, Web + Mobile 2019", date: "Aug. 2018 to Current"),
-        Page(name: "ibero", header: "Iberoamerican University", description: "B.S Computer Technologies and Telecommunications Engineer 2018", date: "Aug. 2014 to May 2018")
-    ]
+    var pages = [Page]()
     
     //button for the creation of the pager, this will appear always at the top of the UI
     private let previousButton: UIButton = {
@@ -174,7 +171,25 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
     private func getDataFromFirebase(){
+        var ref: DatabaseReference!
         
+        ref = Database.database().reference(withPath: "studies")
+        
+        ref.observe(.value) { (snapshot) in
+            var newLeaders = [Page]()
+            for child in snapshot.children{
+                let data = child as? DataSnapshot
+                let value = data?.value as? [String:Any]
+                let date = value?["date"] as? String
+                let description = value?["description"] as? String
+                let header = value?["header"] as? String
+                let name = value?["name"] as? String
+                let page = Page(name: name!, header: header!, description: description!, date: date!)
+                newLeaders.append(page)
+            }
+            self.pages = newLeaders
+            self.collectionView.reloadData()
+        }
     }
     
     
@@ -195,6 +210,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
     
 //    know how many pages the view will have
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        pageControl.numberOfPages = pages.count
         return pages.count
     }
 //    no space between the views
