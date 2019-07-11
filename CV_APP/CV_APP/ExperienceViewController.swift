@@ -1,5 +1,5 @@
 //
-//  StudiesViewController.swift
+//  ExperienceViewController.swift
 //  CV_APP
 //
 //  Created by David Parra on 7/10/19.
@@ -9,12 +9,15 @@
 import UIKit
 
 
-class StudiesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class ExperienceViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     //pages that will have this view controller, created by the page file that can be used on the whole project
     
     let pages = [
-        Page(name: "vfs", header: "Vancouver Film School", description: "Diploma Programming for Games, Web + Mobile 2019", date: "Aug. 2018 to Current"),
-        Page(name: "ibero", header: "Iberoamerican University", description: "B.S Computer Technologies and Telecommunications Engineer 2018", date: "Aug. 2014 to May 2018")
+        Page(name: "crystalcannon", header: "Crystal Cannon", description: "Crystal Cannon is a 3D isometric class based co-op fantasy shooter for PC. As one of the four fabled heroes of Legend, you are tasked with retrieving and protecting the ultimate weapon, the Crystal Cannon, and using it against Kendren, the cursed evil dragon, to defeat him and his crystal plague for all time. Developing Gameplay, AI Enemies, AI Bots for testing the game. ", date: "Mar. 2019 to Current"),
+        Page(name: "flyout", header: "Fly Out", description: " 2D Game build in Unity Engine based on a endless runner using C# and scriptable objects. Developed gameplay mechanics, spawn points, AI, and player controller. This game can be Multiplatform, but for now is only on iOS and Android", date: "Oct. 2018 to Dec. 2018"),
+        Page(name: "dit", header: "Dungeons in Time", description: "Third Person Game build in Unreal Engine based on a exploration world game using C++ language, Blueprints. Developed procedural dungeons for the game play, using closest path to connect each of the rooms. Making some of the AI with AIControllers, Patrolling path, and Following Actor or character", date: "Dec. 2018 to Feb. 2019"),
+        Page(name: "spotit", header: "Spot.IT", description: "Mobile App created on Xcode with swift 4. This app will be a social network for showing all the events that are near to you. Using Firebase, CocoaPods, Push Nofitications", date: "Aug. 2017 to Current"),
+        Page(name: "cvi", header: "Cowboys VS Indians", description: "Runner type Game made in Xcode for iOS platform, in Swift 4 and SpriteKit. I created the whole game mechanics, gameplays, widgets", date: "Aug. 2017 to Dec. 2017")
     ]
     
     //button for the creation of the pager, this will appear always at the top of the UI
@@ -28,7 +31,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         return button
     }()
     
-//    function for clicking on the prev button
+    //    function for clicking on the prev button
     @objc private func handlePrev() {
         let nextIndex = max(pageControl.currentPage - 1, 0)
         let indexPath = IndexPath(item: nextIndex, section: 0)
@@ -36,34 +39,34 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
-     //button for the creation of the pager, this will appear always at the top of the UI
+    //button for the creation of the pager, this will appear always at the top of the UI
     private let nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("NEXT", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(.red, for: .normal)
+        button.setTitleColor(.blue, for: .normal)
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
-//function for clicking on the next button
+    //function for clicking on the next button
     @objc private func handleNext() {
         let nextIndex = min(pageControl.currentPage + 1, pages.count - 1)
         let indexPath = IndexPath(item: nextIndex, section: 0)
         pageControl.currentPage = nextIndex
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
-//    page controller for moving through all the views that i have
+    //    page controller for moving through all the views that i have
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.currentPage = 0
         pc.numberOfPages = pages.count
-        pc.currentPageIndicatorTintColor = .red
+        pc.currentPageIndicatorTintColor = .blue
         pc.pageIndicatorTintColor = UIColor(red: 249/255, green: 207/255, blue: 224/255, alpha: 1)
         return pc
     }()
     
-
+    
     //    click userview to go to this view
     private let buttonUserView: UIButton = {
         let button = UIButton(type: .system)
@@ -76,38 +79,38 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
     @objc private func handleUser() {
         let swipingController = ViewController()
         self.present(swipingController, animated: false, completion: nil)
-        //self.dismiss(animated: false, completion: nil)
     }
     
-//    click experienceview to go to this view
+    //    click experienceview to go to this view
     private let buttonExperienceView: UIButton = {
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(named: "portfolio"), for: .normal)
-        button.addTarget(self, action: #selector(handleExperience), for: .touchUpInside)
+        return button
+    }()
+
+    //    click studiesView to go to this view
+    private let buttonStudiesView: UIButton = {
+        let button = UIButton(type: .system)
+        button.setBackgroundImage(UIImage(named: "studies"), for: .normal)
+        button.addTarget(self, action: #selector(handleStudies), for: .touchUpInside)
         return button
     }()
     
     //    func to call the viewcontroller
-    @objc private func handleExperience() {
+    @objc private func handleStudies() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let swipingController = ExperienceViewController(collectionViewLayout: layout)
+        let swipingController = StudiesViewController(collectionViewLayout: layout)
         self.present(swipingController, animated: false, completion: nil)
     }
     
-//    click studiesView to go to this view
-    private let buttonStudiesView: UIButton = {
-        let button = UIButton(type: .system)
-        button.setBackgroundImage(UIImage(named: "studies"), for: .normal)
-        return button
-    }()
-//    stack for saving the buttons in a location 
+    //    stack for saving the buttons in a location
     private let bottomControlsStackView: UIStackView = {
         let stack =  UIStackView()
         return stack
     }()
     
-//    function for adding autolayout by code
+    //    function for adding autolayout by code
     fileprivate func setupTopControls() {
         let bottomControlsStackView = UIStackView(arrangedSubviews: [previousButton, pageControl, nextButton])
         bottomControlsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -164,7 +167,7 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
-//    function for changing the pagecontroller index
+    //    function for changing the pagecontroller index
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         let x = targetContentOffset.pointee.x
@@ -173,47 +176,38 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         
     }
     
-    private func getDataFromFirebase(){
-        
-    }
-    
-    
-//    function that loads every time you run the app
+    //    function that loads every time you run the app
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getDataFromFirebase()
-        
-        
         setupTopControls()
         setupBottomControls()
         
         collectionView.backgroundColor = .white
-        collectionView.register(StudyCell.self, forCellWithReuseIdentifier: "cellID")
+        collectionView.register(ExperienceCell.self, forCellWithReuseIdentifier: "cellExp")
         collectionView.isPagingEnabled = true
     }
     
-//    know how many pages the view will have
+    //    know how many pages the view will have
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pages.count
     }
-//    no space between the views
+    //    no space between the views
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-//    size of the view
+    //    size of the view
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
-//    creating the cell before putting it on the view
+    //    creating the cell before putting it on the view
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! StudyCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellExp", for: indexPath) as! ExperienceCell
         let page = pages[indexPath.item]
         cell.page = page
         return cell
     }
     
-//    function to get the the user moved from portrait to landscape or the other way around, for changing some values of the constraint
+    //    function to get the the user moved from portrait to landscape or the other way around, for changing some values of the constraint
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         configureContraintsForSize(size: size)
@@ -233,3 +227,4 @@ class StudiesViewController: UICollectionViewController, UICollectionViewDelegat
         }
     }
 }
+

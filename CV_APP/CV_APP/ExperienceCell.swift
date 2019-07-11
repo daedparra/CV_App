@@ -1,24 +1,23 @@
 //
-//  StudyCell.swift
+//  ExperienceCell.swift
 //  CV_APP
 //
 //  Created by David Parra on 7/10/19.
 //  Copyright © 2019 David Parra. All rights reserved.
 //
-
 import UIKit
 
-class StudyCell: UICollectionViewCell{
+class ExperienceCell: UICollectionViewCell{
     
-   
+    
     var page: Page?{
         didSet{
             guard let existPage = page else {return}
             imageProfileView.image = UIImage(named: existPage.imageName)
             
             let attributedText = NSMutableAttributedString(string: existPage.headerText, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)])
-            attributedText.append(NSAttributedString(string: "\n\n" + existPage.descriptionText, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)]))
-             attributedText.append(NSAttributedString(string: "\n\n" + existPage.date, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)]))
+            attributedText.append(NSAttributedString(string: "\n\n" + existPage.descriptionText, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)]))
+            attributedText.append(NSAttributedString(string: "\n" + existPage.date, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]))
             
             descriptionView.attributedText = attributedText
             descriptionView.textAlignment = .center
@@ -26,7 +25,7 @@ class StudyCell: UICollectionViewCell{
             descriptionView.isScrollEnabled = false
         }
     }
-   private let imageProfileView: UIImageView = {
+    private let imageProfileView: UIImageView = {
         let imageview = UIImageView(image: UIImage(named: "profilePicture"))
         imageview.translatesAutoresizingMaskIntoConstraints = false
         imageview.contentMode = .scaleAspectFit
@@ -47,7 +46,7 @@ class StudyCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        backgroundColor = .purple
+        //        backgroundColor = .purple
         addSubview(descriptionView)
         setupLayout()
     }
@@ -71,13 +70,15 @@ class StudyCell: UICollectionViewCell{
         imageProfileView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
         imageProfileView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor, constant: 20).isActive = true
         imageProfileView.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.7).isActive = true
+        imageProfileView.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.topAnchor.constraint(equalTo: topImageContainerView.bottomAnchor, constant: 10).isActive = true
-        descriptionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 24).isActive = true
+        descriptionView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 40).isActive = true
         descriptionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -24).isActive = true
         descriptionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 50).isActive = true
         
     }
     
 }
+

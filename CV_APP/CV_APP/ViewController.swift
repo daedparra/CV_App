@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     //{} is refered to as closure, or anon. fucntions
-    
+//    photo for user image
     let imageProfileView: UIImageView = {
        let imageview = UIImageView(image: UIImage(named: "profilePicture"))
         imageview.clipsToBounds = true
@@ -20,30 +20,43 @@ class ViewController: UIViewController {
         imageview.contentMode = .scaleAspectFill
         return imageview
     }()
-    
+    //    click userview to go to this view
     private let buttonUserView: UIButton = {
-//        let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(named: "myuser"), for: .normal)
-         //button.setImage(UIImage(named: "myuser"), for: .normal)
         return button
     }()
-    
+    //    click experienceview to go to this view
     private let buttonExperienceView: UIButton = {
-//        let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(named: "portfolio"), for: .normal)
-        //button.setImage(UIImage(named: "portfolio"), for: .normal)
+        button.addTarget(self, action: #selector(handleExperience), for: .touchUpInside)
         return button
     }()
     
+    //    func to call the viewcontroller
+    @objc private func handleExperience() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = ExperienceViewController(collectionViewLayout: layout)
+        self.present(swipingController, animated: false, completion: nil)
+    }
+    
+    //    click studiesView to go to this view
     private let buttonStudiesView: UIButton = {
-//        let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(named: "studies"), for: .normal)
-        //button.setImage(UIImage(named: "studies"), for: .normal)
+        button.addTarget(self, action: #selector(handleStudies), for: .touchUpInside)
         return button
     }()
+    
+    //    func to call the viewcontroller
+    @objc private func handleStudies() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = StudiesViewController(collectionViewLayout: layout)
+        self.present(swipingController, animated: false, completion: nil)
+    }
     
     private let bottomControlsStackView: UIStackView = {
         let stack =  UIStackView()
@@ -63,7 +76,6 @@ class ViewController: UIViewController {
         attributedText.append(NSAttributedString(string: "\nhttps://www.linkedin.com/in/david-eduardo-parra-mercado/", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12)]))
         
         textView.attributedText = attributedText
-//        textView.font = UIFont.boldSystemFont(ofSize: 20)
         textView.textAlignment = .center
         textView.isEditable = false
         textView.isScrollEnabled = false
@@ -73,20 +85,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-//        view.addSubview(imageProfileView)
+        view.backgroundColor = .white
         view.addSubview(descriptionView)
         
         setupBottomControls()
         setupLayout()
         
     }
-
+    
+//    function to get the the user moved from portrait to landscape or the other way around, for changing some values of the constraint
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         configureContraintsForSize(size: size)
     }
     
+//    changing the values of the bottom constraints
     private func configureContraintsForSize(size: CGSize){
         if(size.width > size.height){
             
@@ -118,6 +131,7 @@ class ViewController: UIViewController {
         }
     }
     
+//    when the view load we setup the buttons
     private func setupBottomControls(){
         
         view.addSubview(bottomControlsStackView)
@@ -125,8 +139,6 @@ class ViewController: UIViewController {
         bottomControlsStackView.addArrangedSubview(buttonUserView)
         bottomControlsStackView.addArrangedSubview(buttonStudiesView)
         configureContraintsForSize(size: view.bounds.size)
-
-//        view.addSubview(buttonStudiesView)
     }
 
     private func setupLayout(){
@@ -134,7 +146,6 @@ class ViewController: UIViewController {
         //        this enables autolayout for our imageView
         //        this area will locate the profile button on the center of the view and at the bottom of the view
         let topImageContainerView = UIView()
-//        topImageContainerView.backgroundColor = UIColor.blue
         view.addSubview(topImageContainerView)
         topImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         topImageContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

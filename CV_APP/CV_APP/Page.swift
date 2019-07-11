@@ -13,6 +13,7 @@ class Page{
     let headerText: String
     let descriptionText : String
     let date: String
+    
     init(name: String, header: String, description: String, date: String) {
         imageName = name
         headerText = header

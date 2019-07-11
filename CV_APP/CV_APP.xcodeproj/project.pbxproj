@@ -17,6 +17,8 @@
 		E47A9AA222D6A26600A074E3 /* StudiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47A9AA122D6A26600A074E3 /* StudiesViewController.swift */; };
 		E47A9AA422D6BFB800A074E3 /* StudyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47A9AA322D6BFB800A074E3 /* StudyCell.swift */; };
 		E47A9AA622D6CC7A00A074E3 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47A9AA522D6CC7A00A074E3 /* Page.swift */; };
+		E47A9AA822D6E93900A074E3 /* ExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47A9AA722D6E93900A074E3 /* ExperienceViewController.swift */; };
+		E47A9AAC22D6EF0600A074E3 /* ExperienceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47A9AAB22D6EF0600A074E3 /* ExperienceCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		E47A9AA122D6A26600A074E3 /* StudiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiesViewController.swift; sourceTree = "<group>"; };
 		E47A9AA322D6BFB800A074E3 /* StudyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCell.swift; sourceTree = "<group>"; };
 		E47A9AA522D6CC7A00A074E3 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		E47A9AA722D6E93900A074E3 /* ExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceViewController.swift; sourceTree = "<group>"; };
+		E47A9AAB22D6EF0600A074E3 /* ExperienceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 				E47A9AA122D6A26600A074E3 /* StudiesViewController.swift */,
 				E47A9AA322D6BFB800A074E3 /* StudyCell.swift */,
 				E47A9AA522D6CC7A00A074E3 /* Page.swift */,
+				E47A9AA722D6E93900A074E3 /* ExperienceViewController.swift */,
+				E47A9AAB22D6EF0600A074E3 /* ExperienceCell.swift */,
 			);
 			path = CV_APP;
 			sourceTree = "<group>";
@@ -235,6 +241,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47A9AAC22D6EF0600A074E3 /* ExperienceCell.swift in Sources */,
+				E47A9AA822D6E93900A074E3 /* ExperienceViewController.swift in Sources */,
 				E47A9A8E22D5099100A074E3 /* ViewController.swift in Sources */,
 				E47A9AA222D6A26600A074E3 /* StudiesViewController.swift in Sources */,
 				E47A9A8C22D5099100A074E3 /* AppDelegate.swift in Sources */,
