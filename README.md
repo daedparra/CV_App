@@ -17,3 +17,10 @@
 -       Xcode 10.1
 -       Swift 4.2
 -       Firebase
+
+### For Running the App
+```
+Open the file named "CV_APP.xcworkspace"
+Click Run and wait
+```
+
